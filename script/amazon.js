@@ -2,6 +2,11 @@ import {cart, addToCart} from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utile/money.js';
 
+
+
+
+updateCartQuentity();
+
 let html ="";
 products.forEach((products) =>{
     html+=` <div class="product-container">
