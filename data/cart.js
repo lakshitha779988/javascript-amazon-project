@@ -22,6 +22,9 @@ export  let cart=[
 
 ];
 
+
+
+
 export function addToCart(productId){
     let machingItem;
         cart.forEach((cartItem) =>{
