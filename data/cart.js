@@ -25,10 +25,12 @@ export function addToCart(productId){
         else{
             cart.push({
                 productId : productId,
-                quantity: 1
+                quantity: 1,
+                deliveryOptionId: "1"
             });
         }
         saveToLocalStorage();
+        console.log(cart);
 
 }
 
@@ -41,4 +43,14 @@ export function deleteFromCart(productId){
     });
   cart=newCart;
   saveToLocalStorage();
+}
+
+export function updateCartQuentity(){
+    let cardQuantity= 0;
+
+        cart.forEach((cartItem) =>{
+            cardQuantity+=cartItem.quantity;
+        })
+
+       return cardQuantity;
 }
