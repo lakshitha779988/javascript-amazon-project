@@ -1,8 +1,8 @@
 import { cart, deleteFromCart, updateCartQuentity , updatDileveryOption, upadateQuetity} from "../../data/cart.js";
-import { products } from "../../data/products.js";
+import { products , getProduct} from "../../data/products.js";
 import { formatCurrency } from "../utile/money.js";
-
-import { deliveryOptions } from "../../data/deleveryoption.js";
+import { renderPaymentSummery } from "./paymentSummery.js";
+import { deliveryOptions, getDeliveryOption } from "../../data/deleveryoption.js";
 import { formatdate } from "../utile/date.js";
  
 
@@ -11,20 +11,12 @@ export function renderOrderSummery(){
     let cartSummeryHtml ="";
 
     cart.forEach((cartItem) =>{
-        let machingproduct;
-        products.forEach((product) =>{
-            if(product.id===cartItem.productId){
-                machingproduct=product;
-            }
-        });
+        const machingproduct= getProduct(cartItem.productId);
+        
 
-        let deliveryOption;
-        deliveryOptions.forEach((option) => {
-          if(option.id===cartItem.deliveryOptionId){
-            deliveryOption=option;
-          }
-          
-        });
+        let deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
+       
+  
 
     const deliveryDateFormat =formatdate(deliveryOption);
       
@@ -132,6 +124,7 @@ export function renderOrderSummery(){
 
         updatDileveryOption(productId,deleveryOptionId);
         renderOrderSummery();
+        renderPaymentSummery();
       });
       
     });
