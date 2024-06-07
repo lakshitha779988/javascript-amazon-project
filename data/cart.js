@@ -54,3 +54,30 @@ export function updateCartQuentity(){
 
        return cardQuantity;
 }
+
+export function updatDileveryOption(productId,deliveryOptionId){
+    let machingItem;
+    cart.forEach((cartItem) =>{
+        if(productId===cartItem.productId){
+            machingItem=cartItem
+        }
+    });
+
+    machingItem.deliveryOptionId=deliveryOptionId;
+    console.log(machingItem.deliveryOptionId);
+    saveToLocalStorage();
+
+
+}
+
+export function upadateQuetity(productId,newQuantity){
+    let machingItem;
+    cart.forEach((cartItem) =>{
+        if(productId===cartItem.productId){
+            machingItem=cartItem
+        }
+    });
+
+    machingItem.quantity=newQuantity;
+    saveToLocalStorage();
+}
