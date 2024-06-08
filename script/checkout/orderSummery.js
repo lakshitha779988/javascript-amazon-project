@@ -8,6 +8,9 @@ import { formatdate } from "../utile/date.js";
 
 
 export function renderOrderSummery(){
+
+  const orderCountHtml = document.querySelector(".js-return-to-home");
+  orderCountHtml.innerHTML=updateCartQuentity();
     let cartSummeryHtml ="";
 
     cart.forEach((cartItem) =>{
@@ -114,8 +117,39 @@ export function renderOrderSummery(){
             const container = document.querySelector(`.js-cart-item-container-${productId}`);
             container.remove();
           updateCartList();
+          renderPaymentSummery();
         })
     })
+
+    document.querySelectorAll(".js-update-link").forEach((link) => {
+      link.addEventListener("click", () => {
+        const productId = link.dataset.productId;
+        const updateContainer = document.querySelector(`.js-update-link-${productId}`);
+        
+        const originalContainer = updateContainer.innerHTML;
+        // Clear previous content and add input and save button
+        updateContainer.innerHTML = `
+          <input class="js-update-input" type="text">
+          <button class="js-update-save">Save</button>
+        `;
+    
+        // Optionally focus on the new input element
+        const inputElement = updateContainer.querySelector('.js-update-input');
+        inputElement.focus();
+    
+        // Add event listener to the save button
+        updateContainer.querySelector('.js-update-save').addEventListener("click", () => {
+          let inputValue = 0;
+           inputValue = inputElement.value;
+          upadateQuetity(productId,inputValue);
+          console.log(`Input value for product ${productId}: ${inputValue}`);
+          updateContainer.innerHTML = originalContainer;
+         renderOrderSummery();
+         renderPaymentSummery();
+        });
+      });
+    });
+    
 
     document.querySelectorAll(".js-delivery-option")
     .forEach((element) =>{

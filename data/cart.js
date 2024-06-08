@@ -49,7 +49,7 @@ export function updateCartQuentity(){
     let cardQuantity= 0;
 
         cart.forEach((cartItem) =>{
-            cardQuantity+=cartItem.quantity;
+            cardQuantity+=Number(cartItem.quantity);
         })
 
        return cardQuantity;
@@ -78,6 +78,6 @@ export function upadateQuetity(productId,newQuantity){
         }
     });
 
-    machingItem.quantity=newQuantity;
+    machingItem.quantity=Number(newQuantity);
     saveToLocalStorage();
 }
