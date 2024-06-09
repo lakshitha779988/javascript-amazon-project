@@ -43,6 +43,7 @@ products.forEach((product) =>{
                 <option value="10">10</option>
             </select>
         </div>
+        ${product.extraLinkHtml()}
 
         <div class="product-spacer"></div>
 
