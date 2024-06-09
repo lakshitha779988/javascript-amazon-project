@@ -7,27 +7,27 @@ import { formatCurrency } from './utile/money.js';
 document.querySelector(".js-cart-quantity").innerHTML=updateCartQuentity();
 
 let html ="";
-products.forEach((products) =>{
+products.forEach((product) =>{
     html+=` <div class="product-container">
         <div class="product-image-container">
         <img class="product-image"
-            src="${products.image}">
+            src="${product.image}">
         </div>
 
         <div class="product-name limit-text-to-2-lines">
-        ${products.name}
+        ${product.name}
         </div>
 
         <div class="product-rating-container">
         <img class="product-rating-stars"
-            src="images/ratings/rating-${products.rating.stars*10}.png">
+            src=${product.getStarUrl()}>
         <div class="product-rating-count link-primary">
-        ${products.rating.count}
+        ${product.rating.count}
         </div>
         </div>
 
         <div class="product-price">
-        ${formatCurrency(products.priceCents)}
+        ${product.getPrice()}
         </div>
         <div class="product-quantity-container">
             <select>
@@ -51,7 +51,7 @@ products.forEach((products) =>{
             Added
         </div>
 
-        <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id ="${products.id}">
+        <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id ="${product.id}">
             Add to Cart
         </button>
         </div>`
