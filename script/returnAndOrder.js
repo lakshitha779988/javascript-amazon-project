@@ -1,6 +1,11 @@
 import { cart } from "../data/cart.js";
-import { getProduct } from "../data/products.js";
+import { getProduct , loadProduct} from "../data/products.js";
 import { formatCurrency } from "./utile/money.js";
+
+
+loadProduct(()=>{
+  rederReturnOrder();
+})
 
 function rederReturnOrder(){
 
@@ -67,4 +72,3 @@ function rederReturnOrder(){
     oderGridHtml.innerHTML = orderContainerHtml;
 }
 
-rederReturnOrder();
