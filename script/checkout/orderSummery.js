@@ -9,8 +9,8 @@ import { formatdate } from "../utile/date.js";
 
 export function renderOrderSummery(){
 
-  const orderCountHtml = document.querySelector(".js-return-to-home");
-  orderCountHtml.innerHTML=updateCartQuentity();
+  // const orderCountHtml = document.querySelector(".js-return-to-home");
+  // orderCountHtml.innerHTML=updateCartQuentity();
     let cartSummeryHtml ="";
 
     cart.forEach((cartItem) =>{
@@ -24,7 +24,7 @@ export function renderOrderSummery(){
     const deliveryDateFormat =formatdate(deliveryOption);
       
 
-        cartSummeryHtml += `<div class="cart-item-container js-cart-item-container-${machingproduct.id}">
+        cartSummeryHtml += `<div class="cart-item-container js-cart-item-container js-cart-item-container-${machingproduct.id}">
         <div class="delivery-date js-delivery-date">
           Delivery date: ${deliveryDateFormat}
         </div>
@@ -40,14 +40,14 @@ export function renderOrderSummery(){
             <div class="product-price">
               ${formatCurrency(machingproduct.priceCents)}
             </div>
-            <div class="product-quantity">
+            <div class="product-quantity js-product-quantity-${machingproduct.id}">
               <span>
                 Quantity: <span class="quantity-label js-quantity-label-${machingproduct.id}">${cartItem.quantity}</span>
               </span>
               <span class="update-quantity-link link-primary js-update-link js-update-link-${machingproduct.id}" data-product-id="${machingproduct.id}">
                 Update
               </span>
-              <span class="delete-quantity-link link-primary js-delete-link data-" data-product-id="${machingproduct.id}">
+              <span class="delete-quantity-link link-primary js-delete-link js-delete-link-${machingproduct.id} data-" data-product-id="${machingproduct.id}">
                 Delete
               </span>
             </div>
