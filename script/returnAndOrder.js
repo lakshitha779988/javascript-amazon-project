@@ -1,21 +1,20 @@
-import { cart } from "../data/cart.js";
-import { getProduct , loadProduct} from "../data/products.js";
+import { cart , addToCart ,updateCartQuentity } from "../data/cart.js";
+import { getProduct, loadProduct } from "../data/products.js";
 import { formatCurrency } from "./utile/money.js";
 
+loadProduct(() => {
+  renderReturnOrder();
+});
 
-loadProduct(()=>{
-  rederReturnOrder();
-})
+function renderReturnOrder() {
+  document.querySelector(".js-cart-quantity").innerHTML=updateCartQuentity();
+  let orderContainerHtml = "";
 
-function rederReturnOrder(){
-
-    let orderContainerHtml = "";
-
-    cart.forEach((cartItem)=>{
-        const product = getProduct(cartItem.productId);
-        orderContainerHtml +=`
+  cart.forEach((cartItem) => {
+    const product = getProduct(cartItem.productId);
+    orderContainerHtml += `
         <div class="order-container">
-        <div class="order-header">
+          <div class="order-header">
             <div class="order-header-left-section">
               <div class="order-date">
                 <div class="order-header-label">Order Placed:</div>
@@ -48,27 +47,48 @@ function rederReturnOrder(){
               <div class="product-quantity">
                 ${cartItem.quantity}
               </div>
-              <button class="buy-again-button button-primary">
+              <button class="buy-again-button button-primary js-buy-it-again" data-product-id ="${product.id}">
                 <img class="buy-again-icon" src="images/icons/buy-again.png">
-                <span class="buy-again-message">Buy it again</span>
+                <span class="buy-again-message ">Buy it again</span>
               </button>
             </div>
 
             <div class="product-actions">
-              <a href="tracking.html">
-                <button class="track-package-button button-secondary">
-                  Track package
-                </button>
-              </a>
+              <button class="track-package-button button-secondary js-track-package-button" data-product-id="${product.id}" data-quantity="${cartItem.quantity}">
+                Track package
+              </button>
             </div>
-
-            
           </div>
-          </div>`
+        </div>`;
+  });
 
-
-    });
-    const oderGridHtml = document.querySelector(".js-orders-grid");
-    oderGridHtml.innerHTML = orderContainerHtml;
+  const orderGridHtml = document.querySelector(".js-orders-grid");
+  orderGridHtml.innerHTML = orderContainerHtml;
+  addEventListeners();
 }
 
+function addEventListeners() {
+  document.querySelectorAll(".js-track-package-button").forEach((trackButton) => {
+    trackButton.addEventListener("click", () => {
+      const productId = trackButton.dataset.productId;
+      const quantity = trackButton.dataset.quantity;
+
+      const queryString = new URLSearchParams({
+        productId: productId,
+        quantity: quantity
+      }).toString();
+
+      window.location.href = 'tracking.html?' + queryString;
+    });
+  });
+
+  document.querySelectorAll(".js-buy-it-again").forEach((buyButton)=>{
+      buyButton.addEventListener("click" , ()=>{
+        const productId = buyButton.dataset.productId;
+        addToCart(productId);
+        document.querySelector(".js-cart-quantity").innerHTML=updateCartQuentity();
+        renderReturnOrder();
+       
+      })
+  })
+}

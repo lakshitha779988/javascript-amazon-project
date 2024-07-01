@@ -9,8 +9,8 @@ import { formatdate } from "../utile/date.js";
 
 export function renderOrderSummery(){
 
-  // const orderCountHtml = document.querySelector(".js-return-to-home");
-  // orderCountHtml.innerHTML=updateCartQuentity();
+  const orderCountHtml = document.querySelector(".js-return-to-home");
+  orderCountHtml.innerHTML=updateCartQuentity();
     let cartSummeryHtml ="";
 
     cart.forEach((cartItem) =>{
